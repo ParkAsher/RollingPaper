@@ -10,6 +10,10 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+/* MongoDB Connect */
+const connect = require('./schemas/index');
+connect();
+
 /* views */
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
