@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express();
-const Post = require('../schemas/post')
+const Post = require('../schemas/post');
 
 router.post('/', async (req, res) => {
     try {
@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
 
         await Post.create({nickname, content});
 
-        res.status(201).send({"message": "롤링페이퍼 작성 완료"})
+        res.status(201).send({"message": "롤링페이퍼 작성 완료"});
 
     } catch (error) {
         res.status(400).send({"message": "롤링페이퍼 작성에 실패하였습니다."});
