@@ -10,6 +10,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use('/api', router)
 /* MongoDB Connect */
 const connect = require('./schemas/index');
 connect();
