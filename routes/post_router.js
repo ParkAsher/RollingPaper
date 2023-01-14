@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express();
-const Post = require('../schemas/post');
+const Post = require('../schemas/post.js');
 
 router.post('/', async (req, res) => {
     try {
         const {nickname, content} = req.body;
-
+        console.log(nickname, content)
         if (nickname === undefined) {
             res.status(412).send({"message": "닉네임을 작성해 주세요"});
         } else if (content === undefined) {
@@ -20,3 +20,5 @@ router.post('/', async (req, res) => {
         res.status(400).send({"message": "롤링페이퍼 작성에 실패하였습니다."});
     }
 })
+
+module.exports = router;
