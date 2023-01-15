@@ -1,6 +1,6 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-
+const router = require('./routes')
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -10,6 +10,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use('/api', router)
 /* MongoDB Connect */
 const connect = require('./schemas/index');
 connect();
