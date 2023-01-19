@@ -8,7 +8,32 @@
             <input type="password" name="password" id="password" placeholder="Password" />
         </div>
         <div class="login-btn-wrap">
-            <button type="button" class="login-btn">Sign In</button>
+            <button type="button" class="login-btn" onclick="login()">Sign In</button>
         </div>
     </div>
 </div>
+
+<script>
+    // login
+    function login() {
+        const id = $('#email').val();
+        const password = $('#password').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/users/login',
+            data: {
+                id: id,
+                password: password,
+            },
+            success: function (response) {
+                window.location.href = '/';
+            },
+            error: function (response) {
+                console.log(response.responseJSON.message);
+                alert(response.responseJSON.message);
+                window.location.reload();
+            },
+        });
+    }
+</script>

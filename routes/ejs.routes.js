@@ -1,13 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
+// middleware
+const auth = require('../middleware/auth');
+
 // 메인페이지
 router.get('/', (req, res) => {
     res.render('index.ejs', { components: 'main' });
 });
 
 // 로그인페이지
-router.get('/login', (req, res) => {
+router.get('/login', auth, (req, res) => {
+    // 로그인이 되어있다면?
+    if (res.locals.user) {
+        return res.redirect('/');
+    }
     res.render('index.ejs', { components: 'login' });
 });
 
