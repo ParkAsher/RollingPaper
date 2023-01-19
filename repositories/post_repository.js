@@ -3,7 +3,7 @@ const Post = require("../schemas/post.js");
 class PostRepository {
   loadPost = async () => {
     try {
-      const allPosts = await Post.findAll({});
+      const allPosts = await Post.find({});
       return allPosts;
     } catch (err) {
       console.log(err);
