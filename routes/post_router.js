@@ -6,5 +6,6 @@ const postController = new PostController();
 
 router.post("/", postController.createPost);
 router.get("/", postController.loadPost);
+router.get("/:posts_id", postController.getPost);
 
 module.exports = router;

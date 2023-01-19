@@ -22,6 +22,10 @@ class PostRepository {
       throw error;
     }
   };
+  getPost = async (req, res) => {
+    const readMe = await Post.findById(post_id);
+    return readMe;
+  };
 }
 
 module.exports = PostRepository;

@@ -33,11 +33,21 @@ class PostService {
         error.status = 412;
         throw error;
       }
-
       return;
     } catch (error) {
       throw error;
     }
+  };
+
+  getPost = async (req, res) => {
+    const { readMe } = await this.postRepository.getPost();
+    const readPost = readMe.map(({ nickname, content }) => {
+      return {
+        nickname,
+        content,
+      };
+    });
+    return { readPost };
   };
 }
 
