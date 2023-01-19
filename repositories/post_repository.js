@@ -1,4 +1,4 @@
-const Post = require("../schemas/post.js");
+const Post = require('../schemas/post.js');
 
 class PostRepository {
     createPost = async (nickname, content) => {
