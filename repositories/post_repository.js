@@ -4,8 +4,12 @@ class PostRepository {
     createPost = async (nickname, content) => {
         await Post.create({nickname, content});
 
-        return
-    }
+        return;
+    };
+    getPost = async (req, res) => {
+        const readMe = await Post.findById(post_id);
+        return readMe;
+    };
 }
 
 module.exports = PostRepository;

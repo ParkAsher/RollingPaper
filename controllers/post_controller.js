@@ -1,4 +1,5 @@
 const PostService = require('../services/post_service');
+// const auth = require("../middleware/auth.js");
 
 class PostController {
     postService = new PostService();
@@ -18,6 +19,21 @@ class PostController {
             res.status(201).send({ message: '롤링페이퍼 작성 완료' });
         } catch (error) {
             res.status(400).send({ message: '롤링페이퍼 작성에 실패하였습니다.' });
+        }
+    };
+
+    // 게시글 상세조회  /auth.js 미들웨어 추가할것
+    getPost = async (req, res) => {
+        try {
+            const { posts_id } = req.params;
+            const currentPost = await this.postService.getPost();
+            if (!currentPost) {
+                return res.status(400).json({ message: ' 게시글 조회에 실패하였습니다' });
+            }
+            const { readPost } = currentPost;
+            return res.status(200).json({ readPost });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
         }
     };
 }
