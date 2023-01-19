@@ -6,8 +6,18 @@ class PostService {
     createPost = async (nickname, content) => {
         await this.postRepository.createPost(nickname, content);
 
-        return
-    }
+        return;
+    };
+    getPost = async (req, res) => {
+        const {readMe} = await this.postRepository.getPost();
+        const readPost = readMe.map(({nickname, content}) => {
+            return {
+                nickname,
+                content,
+            };
+        });
+        return {readPost};
+    };
 }
 
 module.exports = PostService;
