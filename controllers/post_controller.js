@@ -1,8 +1,16 @@
 const PostService = require('../services/post_service');
-// const auth = require("../middleware/auth.js");
 
 class PostController {
     postService = new PostService();
+
+    loadPost = async (req, res) => {
+        try {
+            const allPosts = await this.postService.loadPost();
+            return res.status(200).send({ allPosts });
+        } catch (err) {
+            res.status(err.status).send(err.message);
+        }
+    };
 
     createPost = async (req, res) => {
         try {

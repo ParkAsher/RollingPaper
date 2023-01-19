@@ -1,15 +1,31 @@
-const Post = require('../schemas/post.js');
+const Post = require("../schemas/post.js");
 
 class PostRepository {
-    createPost = async (nickname, content) => {
-        await Post.create({nickname, content});
+  loadPost = async () => {
+    try {
+      const allPosts = await Post.find({});
+      return allPosts;
+    } catch (err) {
+      console.log(err);
+      err.status = 500;
+      throw err;
+    }
+  };
 
-        return;
-    };
-    getPost = async (req, res) => {
-        const readMe = await Post.findById(post_id);
-        return readMe;
-    };
+  createPost = async (nickname, content) => {
+    try {
+      await Post.create({ nickname, content });
+
+      return;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+  getPost = async (req, res) => {
+    const readMe = await Post.findById(post_id);
+    return readMe;
+  };
 }
 
 module.exports = PostRepository;
