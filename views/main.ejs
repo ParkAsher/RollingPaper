@@ -33,10 +33,33 @@
                 <textarea placeholder="내용" id="content" class="post-content"></textarea>
             </div>
             <div class="post-btn-wrap">
-                <button type="button" class="post-btn">write</button>
+                <button type="button" class="post-btn" onclick="submit()">write</button>
             </div>
         </div>
     </div>
 </div>
 
-<script></script>
+<script>
+    function submit() {
+        const nickname = $('#nickname').val();
+        const content = $('#content').val();
+
+        //console.log(nickname, content);
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/posts/',
+            data: {
+                nickname,
+                content,
+            },
+            success: function (response) {
+                alert(response.message);
+                window.location.href = '/';
+            },
+            error: function (response) {
+                console.log(response.responseJSON.message);
+            },
+        });
+    }
+</script>
