@@ -9,10 +9,7 @@
         >
             <img src="../image/sticky.png" class="sticky" />
         </button>
-        <div class="board">
-            <img src="../image/stickynote6.png" class="in-board-sticky1" />
-            <img src="../image/stickynote6.png" class="in-board-sticky2" />
-        </div>
+        <div class="board"></div>
     </div>
 </div>
 
@@ -40,6 +37,38 @@
 </div>
 
 <script>
+    // 전체조회
+    $.ajax({
+        type: 'GET',
+        url: '/api/posts/',
+        success: function (response) {
+            const postList = response.allPosts;
+
+            for (let i = 0; i < 7; i++) {
+                let posX = Math.floor(Math.random() * 930);
+                let posY = Math.floor(Math.random() * 550);
+
+                const ImageNum = [
+                    '../image/sticky5.png',
+                    '../image/sticky6.png',
+                    '../image/sticky7.png',
+                    '../image/sticky8.png',
+                ];
+
+                let imageNum = Math.floor(Math.random() * 4);
+
+                let temp = `
+                    <div class="postit" style="background-image: url(${ImageNum[imageNum]}); position: absolute; left: ${posX}px; top: ${posY}px;">
+                        ${postList[i].nickname}
+                    </div>
+                 `;
+
+                $('.board').append(temp);
+            }
+        },
+        error: function (response) {},
+    });
+
     function submit() {
         const nickname = $('#nickname').val();
         const content = $('#content').val();
