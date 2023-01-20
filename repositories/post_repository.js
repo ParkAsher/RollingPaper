@@ -23,8 +23,13 @@ class PostRepository {
         }
     };
     getPost = async (postId) => {
-        const readMe = await Post.findById(postId);
-        return readMe;
+        try {
+            const readMe = await Post.findById(postId);
+            return readMe;
+        } catch (error) {
+            error.status = 500;
+            throw error;
+        }
     };
 }
 
