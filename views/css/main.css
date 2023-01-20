@@ -1,0 +1,41 @@
+.main-background {
+    width: 100%;
+    height: 100%;
+
+    background-image: url('../image/mock4.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+/* .post-stickynote {
+    width: 300px;
+    height: 300px;
+} */
+
+.my-button {
+    background: url("../image/stickynote.png");
+    background-size: cover;
+    background-position: center;
+    width: 180px;
+    height: 180px;
+    border: none;
+
+    position: absolute;
+
+    bottom: 20px;
+    right: 280px;
+}  
+
+.board {
+    width: 50%;
+    height: 58%;
+
+    /* background-color: greenyellow;     */
+
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
