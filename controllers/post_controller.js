@@ -30,16 +30,15 @@ class PostController {
         }
     };
 
-    // 게시글 상세조회  /auth.js 미들웨어 추가할것
+    // 게시글 상세조회
     getPost = async (req, res) => {
         try {
-            const { posts_id } = req.params;
-            const currentPost = await this.postService.getPost();
+            const { postId } = req.params;
+            const currentPost = await this.postService.getPost(postId);
             if (!currentPost) {
                 return res.status(400).json({ message: ' 게시글 조회에 실패하였습니다' });
             }
-            const { readPost } = currentPost;
-            return res.status(200).json({ readPost });
+            return res.status(200).json({ currentPost });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
