@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
 
         // 토큰이 존재하지 않는다면?
         if (!accessToken) {
-            res.locals.user = {};
+            // res.locals.user = {};
             return next();
         }
 

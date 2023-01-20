@@ -1,9 +1,65 @@
 <div class="main-background">
-	<div class="box">
-		<button class="sticky"><img src="../image/sticky.png" class="sticky"></button>
-		<div class="board">
-			<img src="../image/stickynote6.png" class="in-board-sticky1">
-			<img src="../image/stickynote6.png" class="in-board-sticky2">
-		</div>
-	</div>
+    <div class="box">
+        <button
+            id="btn-modal"
+            type="button"
+            class="sticky"
+            data-bs-toggle="modal"
+            data-bs-target="#create-post-modal"
+        >
+            <img src="../image/sticky.png" class="sticky" />
+        </button>
+        <div class="board">
+            <img src="../image/stickynote6.png" class="in-board-sticky1" />
+            <img src="../image/stickynote6.png" class="in-board-sticky2" />
+        </div>
+    </div>
 </div>
+
+<!-- modal -->
+<div
+    class="modal fade"
+    id="create-post-modal"
+    tabindex="-1"
+    aria-labelledby="create-post-modal-label"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="text" id="nickname" class="post-nickname" placeholder="닉네임" />
+            </div>
+            <div class="modal-body">
+                <textarea placeholder="내용" id="content" class="post-content"></textarea>
+            </div>
+            <div class="post-btn-wrap">
+                <button type="button" class="post-btn" onclick="submit()">write</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function submit() {
+        const nickname = $('#nickname').val();
+        const content = $('#content').val();
+
+        //console.log(nickname, content);
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/posts/',
+            data: {
+                nickname,
+                content,
+            },
+            success: function (response) {
+                alert(response.message);
+                window.location.href = '/';
+            },
+            error: function (response) {
+                console.log(response.responseJSON.message);
+            },
+        });
+    }
+</script>

@@ -18,7 +18,7 @@
     bottom: 0%;
     right: 15%;
 
-    background:transparent;
+    background: transparent;
 }
 
 button.sticky {
@@ -49,5 +49,58 @@ button.sticky {
 .in-board-sticky2 {
     width: 450px;
     height: 550px;
+}
 
+.modal-dialog {
+}
+
+.modal-content {
+    background: url('../image/sticky5.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 30rem;
+    padding: 3rem;
+    border: none;
+}
+
+.modal-header {
+    border: none;
+}
+.modal-body {
+    flex: none;
+}
+
+.post-nickname {
+    width: 100%;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    padding: 0.75rem;
+}
+
+.post-content {
+    width: 100%;
+    height: 200px;
+    resize: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    padding: 0.75rem;
+}
+
+.post-btn-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-btn {
+    width: 30%;
+    padding: 0.75rem 1.25rem;
+    background-color: #5fc2ff;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
 }
