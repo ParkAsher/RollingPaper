@@ -1,8 +1,94 @@
 <div class="main-background">
-	<button class="my-button"></button>
-	<div class="board"></div>
+    <div class="box">
+        <button
+            id="btn-modal"
+            type="button"
+            class="sticky"
+            data-bs-toggle="modal"
+            data-bs-target="#create-post-modal"
+        >
+            <img src="../image/sticky.png" class="sticky" />
+        </button>
+        <div class="board"></div>
+    </div>
 </div>
 
-<!-- 이거 첨에 백그라운드 이미지로 줬다가 지우고 -->
-<!-- 한번은 이미지태그로 썻다가 지우고-->
-<!-- 지금 버튼태그로 옮김 -->
+<!-- modal -->
+<div
+    class="modal fade"
+    id="create-post-modal"
+    tabindex="-1"
+    aria-labelledby="create-post-modal-label"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="text" id="nickname" class="post-nickname" placeholder="닉네임" />
+            </div>
+            <div class="modal-body">
+                <textarea placeholder="내용" id="content" class="post-content"></textarea>
+            </div>
+            <div class="post-btn-wrap">
+                <button type="button" class="post-btn" onclick="submit()">write</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 전체조회
+    $.ajax({
+        type: 'GET',
+        url: '/api/posts/',
+        success: function (response) {
+            const postList = response.allPosts;
+
+            for (let i = 0; i < 7; i++) {
+                let posX = Math.floor(Math.random() * 930);
+                let posY = Math.floor(Math.random() * 550);
+
+                const ImageNum = [
+                    '../image/sticky5.png',
+                    '../image/sticky6.png',
+                    '../image/sticky7.png',
+                    '../image/sticky8.png',
+                ];
+
+                let imageNum = Math.floor(Math.random() * 4);
+
+                let temp = `
+                    <div class="postit" style="background-image: url(${ImageNum[imageNum]}); position: absolute; left: ${posX}px; top: ${posY}px;">
+                        ${postList[i].nickname}
+                    </div>
+                 `;
+
+                $('.board').append(temp);
+            }
+        },
+        error: function (response) {},
+    });
+
+    function submit() {
+        const nickname = $('#nickname').val();
+        const content = $('#content').val();
+
+        //console.log(nickname, content);
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/posts/',
+            data: {
+                nickname,
+                content,
+            },
+            success: function (response) {
+                alert(response.message);
+                window.location.href = '/';
+            },
+            error: function (response) {
+                console.log(response.responseJSON.message);
+            },
+        });
+    }
+</script>

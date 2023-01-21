@@ -6,36 +6,108 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-
 }
 
-/* .post-stickynote {
+.sticky {
     width: 300px;
-    height: 300px;
-} */
+    height: 210px;
 
-.my-button {
-    background: url("../image/stickynote.png");
-    background-size: cover;
-    background-position: center;
-    width: 180px;
-    height: 180px;
-    border: none;
-
+    object-fit: cover;
     position: absolute;
 
-    bottom: 20px;
-    right: 280px;
-}  
+    bottom: 0%;
+    right: 15%;
+
+    background: transparent;
+}
+
+button.sticky {
+    border: none;
+    outline: none;
+}
 
 .board {
-    width: 50%;
-    height: 58%;
+    width: 930px;
+    height: 550px;
 
-    /* background-color: greenyellow;     */
+    /* background-color: gray; */
 
     position: absolute;
+
     top: 42%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.modal-content {
+    background: url('../image/sticky5.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 30rem;
+    padding: 3rem;
+    border: none;
+}
+
+.modal-header {
+    border: none;
+}
+.modal-body {
+    flex: none;
+}
+
+.post-nickname {
+    width: 100%;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    padding: 0.75rem;
+}
+
+.post-content {
+    width: 100%;
+    height: 200px;
+    resize: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    padding: 0.75rem;
+}
+
+.post-btn-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-btn {
+    width: 30%;
+    padding: 0.75rem 1.25rem;
+    background-color: #5fc2ff;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.postit {
+    /* background: url('../image/sticky6.png'); */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 15rem;
+    height: 15rem;
+    margin: 0;
+    padding: 1rem;
+    transition: 0.2s ease-in-out;
+
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.postit:hover {
+    transform: scale(1.1);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    z-index: 100;
 }
