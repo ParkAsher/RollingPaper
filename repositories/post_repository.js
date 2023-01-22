@@ -3,7 +3,7 @@ const Post = require('../schemas/post.js');
 class PostRepository {
     loadPostInit = async () => {
         try {
-            const postList = await Post.find({}).limit(8);
+            const postList = await Post.find({}).limit(7);
             return postList;
         } catch (err) {
             console.log(err);
@@ -17,7 +17,7 @@ class PostRepository {
             if (type === 'next') {
                 const postList = await Post.find({
                     _id: { $gt: id },
-                }).limit(8);
+                }).limit(7);
 
                 return postList;
             } else {
@@ -27,7 +27,7 @@ class PostRepository {
                     .sort({
                         _id: -1,
                     })
-                    .limit(8);
+                    .limit(7);
 
                 return postList;
             }
