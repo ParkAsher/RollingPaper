@@ -37,7 +37,7 @@ class PostController {
 
             res.status(201).send({ message: '롤링페이퍼 작성 완료' });
         } catch (error) {
-            res.status(400).send({ message: '롤링페이퍼 작성에 실패하였습니다.' });
+            res.status(400).send({ message: error.message });
         }
     };
 

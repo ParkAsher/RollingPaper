@@ -14,6 +14,7 @@ class PostService {
                 error.status = 404;
                 throw error;
             }
+
             return postList;
         } catch (err) {
             throw err;
@@ -34,6 +35,18 @@ class PostService {
                 error.status = 404;
                 throw error;
             }
+
+            // 들고 온 리스트 오름차순
+            postList.sort((a, b) => {
+                if (a.id < b.id) {
+                    return -1;
+                }
+                if (a.id > b.id) {
+                    return 1;
+                }
+                return 0;
+            });
+
             return postList;
         } catch (err) {
             throw err;

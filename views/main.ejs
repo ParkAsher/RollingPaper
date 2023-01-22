@@ -168,8 +168,6 @@
         const nickname = $('#nickname').val();
         const content = $('#content').val();
 
-        //console.log(nickname, content);
-
         $.ajax({
             type: 'POST',
             url: '/api/posts/',
@@ -182,7 +180,8 @@
                 window.location.href = '/';
             },
             error: function (response) {
-                console.log(response.responseJSON.message);
+                alert(response.responseJSON.message);
+                window.location.reload = '/';
             },
         });
     }

@@ -136,6 +136,11 @@ button.sticky {
 
     overflow: hidden;
     word-wrap: break-word;
+    text-overflow: ellipsis;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .postit:hover {

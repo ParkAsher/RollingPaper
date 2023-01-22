@@ -18,11 +18,17 @@ class PostRepository {
                 const postList = await Post.find({
                     _id: { $gt: id },
                 }).limit(8);
+
                 return postList;
             } else {
                 const postList = await Post.find({
                     _id: { $lt: id },
-                }).limit(8);
+                })
+                    .sort({
+                        _id: -1,
+                    })
+                    .limit(8);
+
                 return postList;
             }
         } catch (err) {
