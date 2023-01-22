@@ -10,8 +10,8 @@
     </button>
 
     <div class="pagination-button-wrap">
-        <button type="button" class="btn-prev"></button>
-        <button type="button" class="btn-next"></button>
+        <button type="button" class="btn-prev" onclick="prev()"></button>
+        <button type="button" class="btn-next" onclick="next()"></button>
     </div>
 
     <div class="board"></div>
@@ -41,37 +41,128 @@
 </div>
 
 <script>
-    // 전체조회
-    $.ajax({
-        type: 'GET',
-        url: '/api/posts/',
-        success: function (response) {
-            const postList = response.allPosts;
+    init();
 
-            for (let i = 0; i < 8; i++) {
-                let posX = Math.floor(Math.random() * 720);
-                let posY = Math.floor(Math.random() * 500);
+    function init() {
+        const id = '';
+        const type = 'init';
 
-                const ImageNum = [
-                    '../image/sticky5.png',
-                    '../image/sticky6.png',
-                    '../image/sticky7.png',
-                    '../image/sticky8.png',
-                ];
+        $.ajax({
+            type: 'GET',
+            url: '/api/posts/?id=' + id + '&type=' + type,
+            success: function (response) {
+                const postList = response.postList;
 
-                let imageNum = Math.floor(Math.random() * 4);
+                for (let i = 0; i < postList.length; i++) {
+                    let posX = Math.floor(Math.random() * 720);
+                    let posY = Math.floor(Math.random() * 500);
 
-                let temp = `
-                    <div class="postit" style="background-image: url(${ImageNum[imageNum]}); position: absolute; left: ${posX}px; top: ${posY}px;">
+                    const ImageNum = [
+                        '../image/sticky5.png',
+                        '../image/sticky6.png',
+                        '../image/sticky7.png',
+                        '../image/sticky8.png',
+                    ];
+
+                    let imageNum = Math.floor(Math.random() * 4);
+
+                    let temp = `
+                    <div data-index=${postList[i]._id} class="postit" style="background-image: url(${ImageNum[imageNum]}); position: absolute; left: ${posX}px; top: ${posY}px;">
                         ${postList[i].nickname}
                     </div>
                  `;
 
-                $('.board').append(temp);
-            }
-        },
-        error: function (response) {},
-    });
+                    $('.board').append(temp);
+                }
+            },
+            error: function (response) {
+                alert(response.responseJSON.message);
+                window.location.reload = '/';
+            },
+        });
+    }
+
+    function prev() {
+        const id = $('.postit:first-child').attr('data-index');
+        const type = 'prev';
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/posts/?id=' + id + '&type=' + type,
+            success: function (response) {
+                $('.board').empty();
+
+                const postList = response.postList;
+
+                for (let i = 0; i < postList.length; i++) {
+                    let posX = Math.floor(Math.random() * 720);
+                    let posY = Math.floor(Math.random() * 500);
+
+                    const ImageNum = [
+                        '../image/sticky5.png',
+                        '../image/sticky6.png',
+                        '../image/sticky7.png',
+                        '../image/sticky8.png',
+                    ];
+
+                    let imageNum = Math.floor(Math.random() * 4);
+
+                    let temp = `
+                    <div data-index=${postList[i]._id} class="postit" style="background-image: url(${ImageNum[imageNum]}); position: absolute; left: ${posX}px; top: ${posY}px;">
+                        ${postList[i].nickname}
+                    </div>
+                 `;
+
+                    $('.board').append(temp);
+                }
+            },
+            error: function (response) {
+                alert(response.responseJSON.message);
+                window.location.reload = '/';
+            },
+        });
+    }
+
+    function next() {
+        const id = $('.postit:last-child').attr('data-index');
+        const type = 'next';
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/posts/?id=' + id + '&type=' + type,
+            success: function (response) {
+                $('.board').empty();
+
+                const postList = response.postList;
+
+                for (let i = 0; i < postList.length; i++) {
+                    let posX = Math.floor(Math.random() * 720);
+                    let posY = Math.floor(Math.random() * 500);
+
+                    const ImageNum = [
+                        '../image/sticky5.png',
+                        '../image/sticky6.png',
+                        '../image/sticky7.png',
+                        '../image/sticky8.png',
+                    ];
+
+                    let imageNum = Math.floor(Math.random() * 4);
+
+                    let temp = `
+                    <div data-index=${postList[i]._id} class="postit" style="background-image: url(${ImageNum[imageNum]}); position: absolute; left: ${posX}px; top: ${posY}px;">
+                        ${postList[i].nickname}
+                    </div>
+                 `;
+
+                    $('.board').append(temp);
+                }
+            },
+            error: function (response) {
+                alert(response.responseJSON.message);
+                window.location.reload = '/';
+            },
+        });
+    }
 
     function submit() {
         const nickname = $('#nickname').val();

@@ -7,18 +7,19 @@ class PostController {
         try {
             // 프론트에서 현재 나타나있는 게시글의 마지막 놈의 _id 값을 body
             // 그거를 repository 까지 넘겨서
-            const { id, type } = req.body;
+            const id = req.query.id;
+            const type = req.query.type;
 
             // 메인페이지 첫 로딩 (호출시)
             if (type === 'init') {
                 const postList = await this.postService.loadPostInit();
-                return res.status(200).send({ postList });
+                return res.status(200).json({ postList });
             }
 
             const postList = await this.postService.loadPost(id, type);
-            return res.status(200).send({ postList });
+            return res.status(200).json({ postList });
         } catch (err) {
-            res.status(err.status).send(err.message);
+            res.status(err.status).json({ message: err.message });
         }
     };
 
