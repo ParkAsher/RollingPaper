@@ -6,6 +6,8 @@ const auth = require('../middleware/auth');
 
 // 메인페이지
 router.get('/', (req, res) => {
+    // getPostCount - 전체 카운트 조회
+    // 8개
     res.render('index.ejs', { components: 'main' });
 });
 
