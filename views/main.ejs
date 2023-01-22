@@ -17,7 +17,7 @@
     <div class="board"></div>
 </div>
 
-<!-- modal -->
+<!-- create post modal -->
 <div
     class="modal fade"
     id="create-post-modal"
@@ -35,6 +35,26 @@
             </div>
             <div class="post-btn-wrap">
                 <button type="button" class="post-btn" onclick="submit()">write</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- post detail modal -->
+<div
+    class="modal fade"
+    id="post-detail-modal"
+    tabindex="-1"
+    aria-labelledby="post-detail-modal-label"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div id="post-detail-nickname"></div>
+            </div>
+            <div class="modal-body">
+                <div id="post-detail-content"></div>
             </div>
         </div>
     </div>
@@ -67,10 +87,11 @@
                     let imageNum = Math.floor(Math.random() * 4);
 
                     let temp = `
-                    <div data-index=${postList[i]._id} class="postit" style="background-image: url(${ImageNum[imageNum]}); position: absolute; left: ${posX}px; top: ${posY}px;">
-                        ${postList[i].nickname}
-                    </div>
-                 `;
+                        <div id="it" data-index=${postList[i]._id} class="postit" style="background-image: url(${ImageNum[imageNum]}); position: absolute; left: ${posX}px; top: ${posY}px;" data-bs-toggle="modal"
+        data-bs-target="#post-detail-modal" onclick="openModal('${postList[i]._id}')">
+                            ${postList[i].nickname}
+                        </div>
+                    `;
 
                     $('.board').append(temp);
                 }
@@ -108,10 +129,11 @@
                     let imageNum = Math.floor(Math.random() * 4);
 
                     let temp = `
-                    <div data-index=${postList[i]._id} class="postit" style="background-image: url(${ImageNum[imageNum]}); position: absolute; left: ${posX}px; top: ${posY}px;">
-                        ${postList[i].nickname}
-                    </div>
-                 `;
+                        <div id="it" data-index=${postList[i]._id} class="postit" style="background-image: url(${ImageNum[imageNum]}); position: absolute; left: ${posX}px; top: ${posY}px;" data-bs-toggle="modal"
+            data-bs-target="#post-detail-modal" onclick="openModal('${postList[i]._id}')">
+                            ${postList[i].nickname}
+                        </div>
+                    `;
 
                     $('.board').append(temp);
                 }
@@ -149,10 +171,11 @@
                     let imageNum = Math.floor(Math.random() * 4);
 
                     let temp = `
-                    <div data-index=${postList[i]._id} class="postit" style="background-image: url(${ImageNum[imageNum]}); position: absolute; left: ${posX}px; top: ${posY}px;">
-                        ${postList[i].nickname}
-                    </div>
-                 `;
+                        <div id="it" data-index=${postList[i]._id} class="postit" style="background-image: url(${ImageNum[imageNum]}); position: absolute; left: ${posX}px; top: ${posY}px;" data-bs-toggle="modal"
+            data-bs-target="#post-detail-modal" onclick="openModal('${postList[i]._id}')">
+                            ${postList[i].nickname}
+                        </div>
+                    `;
 
                     $('.board').append(temp);
                 }
@@ -178,6 +201,25 @@
             success: function (response) {
                 alert(response.message);
                 window.location.href = '/';
+            },
+            error: function (response) {
+                alert(response.responseJSON.message);
+                window.location.reload = '/';
+            },
+        });
+    }
+
+    function openModal(id) {
+        const postId = id;
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/posts/' + postId,
+            success: function (response) {
+                const post = response.currentPost;
+
+                $('#post-detail-nickname').html(post.nickname);
+                $('#post-detail-content').html(post.content);
             },
             error: function (response) {
                 alert(response.responseJSON.message);
