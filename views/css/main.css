@@ -62,7 +62,10 @@ button.create-sticky {
 }
 
 .board {
-    font-family: 'GoodNeighbors-Good-Neighbors-Bold';
+    font-family: 'mongdol';
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 2px;
     /* 1920px 이하 */
     width: 930px;
     height: 550px;
@@ -78,10 +81,23 @@ button.create-sticky {
     background: url('../image/sticky5.png');
     background-size: contain;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat;   
+
+    font-family: 'mongdol';
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    
     height: 30rem;
     padding: 3rem;
     border: none;
+}
+
+.modal-content input,
+.modal-content textarea {
+    font-weight : bold;
+    font-size: 24px;
+    letter-spacing: 2px;
 }
 
 .modal-header {
@@ -166,8 +182,6 @@ button.create-sticky {
 
 /* 폰트 */
 @font-face {
-    font-family: 'GoodNeighbors-Good-Neighbors-Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/GoodNeighbors-Good-Neighbors-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
+    font-family: 'mongdol';
+    src: url('../font/mongdol.ttf') format('truetype');
 }
