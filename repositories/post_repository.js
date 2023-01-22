@@ -1,10 +1,23 @@
-const Post = require("../schemas/post.js");
+const Post = require('../schemas/post.js');
 
 class PostRepository {
-    loadPost = async () => {
+    loadPostInit = async () => {
         try {
-            const allPosts = await Post.find({});
-            return allPosts;
+            const postList = await Post.find({}).limit(8);
+            return postList;
+        } catch (err) {
+            console.log(err);
+            err.status = 500;
+            throw err;
+        }
+    };
+
+    loadPost = async (id) => {
+        try {
+            const postList = await Post.find({
+                _id: { $gt: id },
+            }).limit(8);
+            return postList;
         } catch (err) {
             console.log(err);
             err.status = 500;
@@ -14,7 +27,7 @@ class PostRepository {
 
     createPost = async (nickname, content) => {
         try {
-            await Post.create({nickname, content});
+            await Post.create({ nickname, content });
 
             return;
         } catch (error) {
