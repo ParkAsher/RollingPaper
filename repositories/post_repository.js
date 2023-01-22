@@ -12,12 +12,19 @@ class PostRepository {
         }
     };
 
-    loadPost = async (id) => {
+    loadPost = async (id, type) => {
         try {
-            const postList = await Post.find({
-                _id: { $gt: id },
-            }).limit(8);
-            return postList;
+            if (type === 'next') {
+                const postList = await Post.find({
+                    _id: { $gt: id },
+                }).limit(8);
+                return postList;
+            } else {
+                const postList = await Post.find({
+                    _id: { $lt: id },
+                }).limit(8);
+                return postList;
+            }
         } catch (err) {
             console.log(err);
             err.status = 500;

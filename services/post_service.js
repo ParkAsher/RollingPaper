@@ -20,9 +20,9 @@ class PostService {
         }
     };
 
-    loadPost = async (id) => {
+    loadPost = async (id, type) => {
         try {
-            const postList = await this.postRepository.loadPost(id);
+            const postList = await this.postRepository.loadPost(id, type);
 
             if (postList.length < 1) {
                 let error = new Error('작성된 글이 없습니다.');
