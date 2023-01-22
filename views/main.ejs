@@ -1,16 +1,20 @@
 <div class="main-background">
-    <div class="box">
-        <button
-            id="btn-modal"
-            type="button"
-            class="sticky"
-            data-bs-toggle="modal"
-            data-bs-target="#create-post-modal"
-        >
-            <img src="../image/sticky.png" class="sticky" />
-        </button>
-        <div class="board"></div>
+    <button
+        id="btn-modal"
+        type="button"
+        class="sticky"
+        data-bs-toggle="modal"
+        data-bs-target="#create-post-modal"
+    >
+        <img src="../image/sticky.png" class="sticky" />
+    </button>
+
+    <div class="pagination-button-wrap">
+        <button type="button" class="btn-prev"></button>
+        <button type="button" class="btn-next"></button>
     </div>
+
+    <div class="board"></div>
 </div>
 
 <!-- modal -->
@@ -44,9 +48,9 @@
         success: function (response) {
             const postList = response.allPosts;
 
-            for (let i = 0; i < 7; i++) {
-                let posX = Math.floor(Math.random() * 930);
-                let posY = Math.floor(Math.random() * 550);
+            for (let i = 0; i < 8; i++) {
+                let posX = Math.floor(Math.random() * 720);
+                let posY = Math.floor(Math.random() * 500);
 
                 const ImageNum = [
                     '../image/sticky5.png',

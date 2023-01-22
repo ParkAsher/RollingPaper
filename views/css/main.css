@@ -26,11 +26,44 @@ button.sticky {
     outline: none;
 }
 
+.pagination-button-wrap {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+
+    position: absolute;
+    width: 930px;
+    height: 50px;
+
+    top: 11%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.pagination-button-wrap button {
+    height: 100%;
+    width: 50px;
+    border: none;
+}
+
+.pagination-button-wrap .btn-prev {
+    background: url('../image/prevbutton.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.pagination-button-wrap .btn-next {
+    background: url('../image/nextbutton.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .board {
+    /* 1920px 이하 */
     width: 930px;
     height: 550px;
-
-    /* background-color: gray; */
 
     position: absolute;
 
@@ -110,4 +143,16 @@ button.sticky {
     transition: 0.2s ease-in-out;
     cursor: pointer;
     z-index: 100;
+}
+
+/* 1920px 이상 */
+@media (min-width: 1920px) {
+    .board {
+        width: 1180px;
+        height: 700px;
+        top: 43%;
+    }
+    .pagination-button-wrap {
+        width: 1180px;
+    }
 }
