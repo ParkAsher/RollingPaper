@@ -8,7 +8,7 @@
     background-size: cover;
 }
 
-.sticky {
+.create-sticky {
     width: 300px;
     height: 210px;
 
@@ -21,7 +21,7 @@
     background: transparent;
 }
 
-button.sticky {
+button.create-sticky {
     border: none;
     outline: none;
 }
@@ -53,6 +53,7 @@ button.sticky {
     background-position: center;
     background-repeat: no-repeat;
 }
+
 .pagination-button-wrap .btn-next {
     background: url('../image/nextbutton.png');
     background-size: contain;
@@ -61,6 +62,7 @@ button.sticky {
 }
 
 .board {
+    font-family: 'GoodNeighbors-Good-Neighbors-Bold';
     /* 1920px 이하 */
     width: 930px;
     height: 550px;
@@ -160,4 +162,12 @@ button.sticky {
     .pagination-button-wrap {
         width: 1180px;
     }
+}
+
+/* 폰트 */
+@font-face {
+    font-family: 'GoodNeighbors-Good-Neighbors-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/GoodNeighbors-Good-Neighbors-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
 }

@@ -10,7 +10,6 @@ module.exports = async (req, res, next) => {
 
         // 토큰이 존재하지 않는다면?
         if (!accessToken) {
-            // res.locals.user = {};
             return next();
         }
 
@@ -31,5 +30,6 @@ module.exports = async (req, res, next) => {
     } catch (error) {
         res.clearCookie('accessToken');
         return res.status(error.status).json({ message: error.message });
+        // next(error);
     }
 };
