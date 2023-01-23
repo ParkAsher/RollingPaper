@@ -8,7 +8,7 @@
     background-size: cover;
 }
 
-.sticky {
+.create-sticky {
     width: 300px;
     height: 210px;
 
@@ -21,16 +21,14 @@
     background: transparent;
 }
 
-button.sticky {
+button.create-sticky {
     border: none;
     outline: none;
 }
 
 .pagination-button-wrap {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 10px;
+    justify-content: space-between;
 
     position: absolute;
     width: 930px;
@@ -41,19 +39,31 @@ button.sticky {
     transform: translate(-50%, -50%);
 }
 
-.pagination-button-wrap button {
+.pagination-button-wrap .pagination-button-container {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    gap: 10px;
+}
+
+.pagination-button-wrap .pagination-button-container button {
     height: 100%;
     width: 50px;
     border: none;
 }
 
-.pagination-button-wrap .btn-prev {
+audio::-webkit-media-controls-enclosure {
+    background-color: #ededed;
+}
+
+.btn-prev {
     background: url('../image/prevbutton.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
 }
-.pagination-button-wrap .btn-next {
+
+.btn-next {
     background: url('../image/nextbutton.png');
     background-size: contain;
     background-position: center;
@@ -61,6 +71,10 @@ button.sticky {
 }
 
 .board {
+    font-family: 'mongdol';
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 2px;
     /* 1920px 이하 */
     width: 930px;
     height: 550px;
@@ -77,9 +91,22 @@ button.sticky {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+
+    font-family: 'mongdol';
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 2px;
+
     height: 30rem;
     padding: 3rem;
     border: none;
+}
+
+.modal-content input,
+.modal-content textarea {
+    font-weight: bold;
+    font-size: 24px;
+    letter-spacing: 2px;
 }
 
 .modal-header {
@@ -160,4 +187,10 @@ button.sticky {
     .pagination-button-wrap {
         width: 1180px;
     }
+}
+
+/* 폰트 */
+@font-face {
+    font-family: 'mongdol';
+    src: url('../font/mongdol.ttf') format('truetype');
 }

@@ -2,16 +2,21 @@
     <button
         id="btn-modal"
         type="button"
-        class="sticky"
+        class="create-sticky"
         data-bs-toggle="modal"
         data-bs-target="#create-post-modal"
     >
-        <img src="../image/sticky.png" class="sticky" />
+        <img src="../image/sticky.png" class="create-sticky" />
     </button>
 
     <div class="pagination-button-wrap">
-        <button type="button" class="btn-prev" onclick="prev()"></button>
-        <button type="button" class="btn-next" onclick="next()"></button>
+        <div class="pagination-button-container">
+            <button type="button" class="btn-prev" onclick="prev()"></button>
+            <button type="button" class="btn-next" onclick="next()"></button>
+        </div>
+        <div class="audio-wrap">
+            <audio id="song" autoplay controls src="./audio/song1.mp3"></audio>
+        </div>
     </div>
 
     <div class="board"></div>
@@ -61,6 +66,20 @@
 </div>
 
 <script>
+    const audio = document.getElementById('song');
+    audio.volume = 0.25;
+    // 노래가 끝났을때
+    const playList = ['./audio/song1.mp3', './audio/song2.mp3', './audio/song3.mp3'];
+    let playListIndex = 1;
+    $('#song').on('ended', function () {
+        $('#song').attr('src', playList[playListIndex++]);
+        $('#song').trigger('play');
+
+        if (playListIndex === 3) {
+            playListIndex = 0;
+        }
+    });
+
     init();
 
     function init() {
@@ -223,7 +242,10 @@
             },
             error: function (response) {
                 alert(response.responseJSON.message);
-                window.location.reload = '/';
+
+                $('#post-detail-modal').on('shown.bs.modal', function () {
+                    $('#post-detail-modal').modal('hide');
+                });
             },
         });
     }
