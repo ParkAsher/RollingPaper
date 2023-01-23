@@ -10,8 +10,13 @@
     </button>
 
     <div class="pagination-button-wrap">
-        <button type="button" class="btn-prev" onclick="prev()"></button>
-        <button type="button" class="btn-next" onclick="next()"></button>
+        <div class="pagination-button-container">
+            <button type="button" class="btn-prev" onclick="prev()"></button>
+            <button type="button" class="btn-next" onclick="next()"></button>
+        </div>
+        <div class="audio-wrap">
+            <audio id="song" autoplay controls src="./audio/song1.mp3"></audio>
+        </div>
     </div>
 
     <div class="board"></div>
@@ -31,7 +36,7 @@
                 <input type="text" id="nickname" class="post-nickname" placeholder="닉네임" />
             </div>
             <div class="modal-body">
-                <textarea placeholder="내용" id="content" class="post-content" ></textarea>
+                <textarea placeholder="내용" id="content" class="post-content"></textarea>
             </div>
             <div class="post-btn-wrap">
                 <button type="button" class="post-btn" onclick="submit()">write</button>
@@ -61,7 +66,21 @@
 </div>
 
 <script>
-    init();   
+    const audio = document.getElementById('song');
+    audio.volume = 0.25;
+    // 노래가 끝났을때
+    const playList = ['./audio/song1.mp3', './audio/song2.mp3', './audio/song3.mp3'];
+    let playListIndex = 1;
+    $('#song').on('ended', function () {
+        $('#song').attr('src', playList[playListIndex++]);
+        $('#song').trigger('play');
+
+        if (playListIndex === 3) {
+            playListIndex = 0;
+        }
+    });
+
+    init();
 
     function init() {
         const id = '';
@@ -222,14 +241,12 @@
                 $('#post-detail-content').html(post.content);
             },
             error: function (response) {
-                alert(response.responseJSON.message);   
-                
-                $('#post-detail-modal').on('shown.bs.modal', function () {
-                    $('#post-detail-modal').modal('hide')
-                })
-            },
-        });        
-        
-    }    
+                alert(response.responseJSON.message);
 
+                $('#post-detail-modal').on('shown.bs.modal', function () {
+                    $('#post-detail-modal').modal('hide');
+                });
+            },
+        });
+    }
 </script>
