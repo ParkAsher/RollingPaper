@@ -33,6 +33,12 @@ class PostController {
                 res.status(412).send({ message: '내용을 작성해 주세요' });
             }
 
+            if (nickname.length > 10) {
+                let error = new Error('닉네임은 10글자를 넘길 수 없습니다.');
+                error.status = 412;
+                throw error;
+            }
+
             await this.postService.createPost(nickname, content);
 
             res.status(201).send({ message: '롤링페이퍼 작성 완료' });
@@ -42,16 +48,23 @@ class PostController {
     };
 
     // 게시글 상세조회
-    getPost = async (req, res) => {
+    getPost = async (req, res, next) => {
         try {
+            if (!res.locals.user) {
+                const error = new Error('게시글 조회 권한이 없습니다.');
+                error.status = 400;
+                throw error;
+            }
+
             const { postId } = req.params;
+
             const currentPost = await this.postService.getPost(postId);
             if (!currentPost) {
                 return res.status(400).json({ message: ' 게시글 조회에 실패하였습니다' });
             }
             return res.status(200).json({ currentPost });
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            res.status(error.status).json({ message: error.message });
         }
     };
 }
