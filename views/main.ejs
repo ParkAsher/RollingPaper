@@ -68,7 +68,7 @@
 <script>
     const audio = document.getElementById('song');
     audio.volume = 0.25;
-    // 노래가 끝났을때
+
     const playList = ['./audio/song1.mp3', './audio/song2.mp3', './audio/song3.mp3'];
     let playListIndex = 1;
     $('#song').on('ended', function () {
@@ -86,10 +86,29 @@
         const id = '';
         const type = 'init';
 
+        getPosts(id, type);
+    }
+
+    function prev() {
+        const id = $('.postit:first-child').attr('data-index');
+        const type = 'prev';
+
+        getPosts(id, type);
+    }
+
+    function next() {
+        const id = $('.postit:last-child').attr('data-index');
+        const type = 'next';
+
+        getPosts(id, type);
+    }
+
+    function getPosts(id, type) {
         $.ajax({
             type: 'GET',
             url: '/api/posts/?id=' + id + '&type=' + type,
             success: function (response) {
+                $('.board').empty();
                 const postList = response.postList;
 
                 for (let i = 0; i < postList.length; i++) {
@@ -108,90 +127,6 @@
                     let temp = `
                         <div id="it" data-index=${postList[i]._id} class="postit" style="background-image: url(${ImageNum[imageNum]}); position: absolute; left: ${posX}px; top: ${posY}px;" data-bs-toggle="modal"
         data-bs-target="#post-detail-modal" onclick="openModal('${postList[i]._id}')">
-                            ${postList[i].nickname}
-                        </div>
-                    `;
-
-                    $('.board').append(temp);
-                }
-            },
-            error: function (response) {
-                alert(response.responseJSON.message);
-                window.location.reload = '/';
-            },
-        });
-    }
-
-    function prev() {
-        const id = $('.postit:first-child').attr('data-index');
-        const type = 'prev';
-
-        $.ajax({
-            type: 'GET',
-            url: '/api/posts/?id=' + id + '&type=' + type,
-            success: function (response) {
-                $('.board').empty();
-
-                const postList = response.postList;
-
-                for (let i = 0; i < postList.length; i++) {
-                    let posX = Math.floor(Math.random() * 720);
-                    let posY = Math.floor(Math.random() * 500);
-
-                    const ImageNum = [
-                        '../image/sticky5.png',
-                        '../image/sticky6.png',
-                        '../image/sticky7.png',
-                        '../image/sticky8.png',
-                    ];
-
-                    let imageNum = Math.floor(Math.random() * 4);
-
-                    let temp = `
-                        <div id="it" data-index=${postList[i]._id} class="postit" style="background-image: url(${ImageNum[imageNum]}); position: absolute; left: ${posX}px; top: ${posY}px;" data-bs-toggle="modal"
-            data-bs-target="#post-detail-modal" onclick="openModal('${postList[i]._id}')">
-                            ${postList[i].nickname}
-                        </div>
-                    `;
-
-                    $('.board').append(temp);
-                }
-            },
-            error: function (response) {
-                alert(response.responseJSON.message);
-                window.location.reload = '/';
-            },
-        });
-    }
-
-    function next() {
-        const id = $('.postit:last-child').attr('data-index');
-        const type = 'next';
-
-        $.ajax({
-            type: 'GET',
-            url: '/api/posts/?id=' + id + '&type=' + type,
-            success: function (response) {
-                $('.board').empty();
-
-                const postList = response.postList;
-
-                for (let i = 0; i < postList.length; i++) {
-                    let posX = Math.floor(Math.random() * 720);
-                    let posY = Math.floor(Math.random() * 500);
-
-                    const ImageNum = [
-                        '../image/sticky5.png',
-                        '../image/sticky6.png',
-                        '../image/sticky7.png',
-                        '../image/sticky8.png',
-                    ];
-
-                    let imageNum = Math.floor(Math.random() * 4);
-
-                    let temp = `
-                        <div id="it" data-index=${postList[i]._id} class="postit" style="background-image: url(${ImageNum[imageNum]}); position: absolute; left: ${posX}px; top: ${posY}px;" data-bs-toggle="modal"
-            data-bs-target="#post-detail-modal" onclick="openModal('${postList[i]._id}')">
                             ${postList[i].nickname}
                         </div>
                     `;
@@ -235,7 +170,7 @@
             type: 'GET',
             url: '/api/posts/' + postId,
             success: function (response) {
-                const post = response.currentPost;
+                const post = response.post;
 
                 $('#post-detail-nickname').html(post.nickname);
                 $('#post-detail-content').html(post.content);
