@@ -1,7 +1,7 @@
 const Post = require('../schemas/post.js');
 
 class PostRepository {
-    loadPostInit = async () => {
+    getPostsInit = async () => {
         try {
             const postList = await Post.find({}).limit(7);
             return postList;

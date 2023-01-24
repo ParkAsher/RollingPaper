@@ -1,25 +1,31 @@
+const { NotInvalidType } = require('../lib/CustomError');
 const PostService = require('../services/post_service');
 
 class PostController {
     postService = new PostService();
 
-    loadPost = async (req, res) => {
+    getPosts = async (req, res) => {
         try {
             // 프론트에서 현재 나타나있는 게시글의 마지막 놈의 _id 값을 body
             // 그거를 repository 까지 넘겨서
             const id = req.query.id;
             const type = req.query.type;
 
+            if (!type) {
+                const error = new NotInvalidType();
+                throw error;
+            }
+
             // 메인페이지 첫 로딩 (호출시)
             if (type === 'init') {
-                const postList = await this.postService.loadPostInit();
+                const postList = await this.postService.getPostsInit();
                 return res.status(200).json({ postList });
             }
 
-            const postList = await this.postService.loadPost(id, type);
+            const postList = await this.postService.getPosts(id, type);
             return res.status(200).json({ postList });
-        } catch (err) {
-            res.status(err.status).json({ message: err.message });
+        } catch (error) {
+            return res.status(error.status).json({ message: error.message });
         }
     };
 

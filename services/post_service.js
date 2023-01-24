@@ -3,11 +3,9 @@ const PostRepository = require('../repositories/post_repository');
 class PostService {
     postRepository = new PostRepository();
 
-    // loadPostInit
-
-    loadPostInit = async () => {
+    getPostsInit = async () => {
         try {
-            const postList = await this.postRepository.loadPostInit();
+            const postList = await this.postRepository.getPostsInit();
 
             if (postList.length < 1) {
                 let error = new Error('작성된 글이 없습니다.');
@@ -21,7 +19,7 @@ class PostService {
         }
     };
 
-    loadPost = async (id, type) => {
+    getPosts = async (id, type) => {
         try {
             const postList = await this.postRepository.loadPost(id, type);
 
