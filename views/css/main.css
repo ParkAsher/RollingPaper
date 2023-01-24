@@ -1,0 +1,222 @@
+.main-background {
+    width: 100%;
+    height: 100%;
+
+    background-image: url('../image/mock4.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.create-sticky {
+    width: 300px;
+    height: 210px;
+
+    object-fit: cover;
+    position: absolute;
+
+    bottom: 0%;
+    right: 15%;
+
+    background: transparent;
+}
+
+button.create-sticky {
+    border: none;
+    outline: none;
+}
+
+button.create-sticky:hover {
+    -webkit-animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.pagination-button-wrap {
+    display: flex;
+    justify-content: space-between;
+
+    position: absolute;
+    width: 930px;
+    height: 50px;
+
+    top: 9%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.pagination-button-wrap .pagination-button-container {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    gap: 10px;
+}
+
+.pagination-button-wrap .pagination-button-container button {
+    height: 100%;
+    width: 50px;
+    border: none;
+}
+
+audio::-webkit-media-controls-enclosure {
+    background-color: #ededed;
+}
+
+.btn-prev {
+    background: url('../image/prevbutton.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.btn-next {
+    background: url('../image/nextbutton.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.board {
+    font-family: 'mongdol';
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    /* 1920px 이하 */
+    width: 930px;
+    height: 550px;
+
+    position: absolute;
+
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-content {
+    background: url('../image/sticky5.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    font-family: 'mongdol';
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 2px;
+
+    height: 30rem;
+    padding: 3rem;
+    border: none;
+}
+
+.modal-content input,
+.modal-content textarea {
+    font-weight: bold;
+    font-size: 24px;
+    letter-spacing: 2px;
+}
+
+.modal-header {
+    border: none;
+}
+.modal-body {
+    flex: none;
+}
+
+.post-nickname {
+    width: 100%;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    padding: 0.75rem;
+}
+
+.post-content {
+    width: 100%;
+    height: 200px;
+    resize: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    padding: 0.75rem;
+}
+
+.post-btn-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-btn {
+    width: 30%;
+    padding: 0.75rem 1.25rem;
+    background-color: #5fc2ff;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.postit {
+    /* background: url('../image/sticky6.png'); */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 15rem;
+    height: 15rem;
+    margin: 0;
+    padding: 1rem;
+    transition: 0.2s ease-in-out;
+
+    overflow: hidden;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.postit:hover {
+    transform: scale(1.1);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    z-index: 100;
+}
+
+/* 2000px 이상 */
+@media (min-width: 2000px) {
+    .board {
+        width: 1180px;
+        height: 700px;
+        top: 43%;
+    }
+    .pagination-button-wrap {
+        width: 1180px;
+    }
+}
+
+/* 폰트 */
+@font-face {
+    font-family: 'mongdol';
+    src: url('../font/mongdol.ttf') format('truetype');
+}
+
+@-webkit-keyframes slide-top {
+    0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    100% {
+        -webkit-transform: translateY(-25px);
+        transform: translateY(-25px);
+    }
+}
+@keyframes slide-top {
+    0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    100% {
+        -webkit-transform: translateY(-25px);
+        transform: translateY(-25px);
+    }
+}

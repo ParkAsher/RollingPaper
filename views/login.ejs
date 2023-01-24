@@ -1,0 +1,44 @@
+<div class="login-background">
+    <div class="login-wrap">
+        <div class="login-header">
+            <p>Sign In</p>
+        </div>
+        <div class="login-body">
+            <input type="text" name="email" id="email" class="login-input" placeholder="Email" />
+            <input
+                type="password"
+                name="password"
+                id="password"
+                class="login-input"
+                placeholder="Password"
+            />
+        </div>
+        <div class="login-btn-wrap">
+            <button type="button" class="login-btn" onclick="login()">Sign In</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function login() {
+        const id = $('#email').val();
+        const password = $('#password').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/users/login',
+            data: {
+                id: id,
+                password: password,
+            },
+            success: function (response) {
+                window.location.href = '/';
+            },
+            error: function (response) {
+                console.log(response.responseJSON.message);
+                alert(response.responseJSON.message);
+                window.location.reload();
+            },
+        });
+    }
+</script>

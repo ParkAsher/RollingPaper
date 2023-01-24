@@ -1,0 +1,187 @@
+<div class="main-background">
+    <button
+        id="btn-modal"
+        type="button"
+        class="create-sticky"
+        data-bs-toggle="modal"
+        data-bs-target="#create-post-modal"
+    >
+        <img src="../image/sticky.png" class="create-sticky" />
+    </button>
+
+    <div class="pagination-button-wrap">
+        <div class="pagination-button-container">
+            <button type="button" class="btn-prev" onclick="prev()"></button>
+            <button type="button" class="btn-next" onclick="next()"></button>
+        </div>
+        <div class="audio-wrap">
+            <audio id="song" autoplay controls src="./audio/song1.mp3"></audio>
+        </div>
+    </div>
+
+    <div class="board"></div>
+</div>
+
+<!-- create post modal -->
+<div
+    class="modal fade"
+    id="create-post-modal"
+    tabindex="-1"
+    aria-labelledby="create-post-modal-label"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="text" id="nickname" class="post-nickname" placeholder="닉네임" />
+            </div>
+            <div class="modal-body">
+                <textarea placeholder="내용" id="content" class="post-content"></textarea>
+            </div>
+            <div class="post-btn-wrap">
+                <button type="button" class="post-btn" onclick="submit()">write</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- post detail modal -->
+<div
+    class="modal fade"
+    id="post-detail-modal"
+    tabindex="-1"
+    aria-labelledby="post-detail-modal-label"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div id="post-detail-nickname"></div>
+            </div>
+            <div class="modal-body">
+                <div id="post-detail-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const audio = document.getElementById('song');
+    audio.volume = 0.25;
+
+    const playList = ['./audio/song1.mp3', './audio/song2.mp3', './audio/song3.mp3'];
+    let playListIndex = 1;
+    $('#song').on('ended', function () {
+        $('#song').attr('src', playList[playListIndex++]);
+        $('#song').trigger('play');
+
+        if (playListIndex === 3) {
+            playListIndex = 0;
+        }
+    });
+
+    init();
+
+    function init() {
+        const id = '';
+        const type = 'init';
+
+        getPosts(id, type);
+    }
+
+    function prev() {
+        const id = $('.postit:first-child').attr('data-index');
+        const type = 'prev';
+
+        getPosts(id, type);
+    }
+
+    function next() {
+        const id = $('.postit:last-child').attr('data-index');
+        const type = 'next';
+
+        getPosts(id, type);
+    }
+
+    function getPosts(id, type) {
+        $.ajax({
+            type: 'GET',
+            url: '/api/posts/?id=' + id + '&type=' + type,
+            success: function (response) {
+                $('.board').empty();
+                const postList = response.postList;
+
+                for (let i = 0; i < postList.length; i++) {
+                    let posX = Math.floor(Math.random() * 720);
+                    let posY = Math.floor(Math.random() * 500);
+
+                    const ImageNum = [
+                        '../image/sticky5.png',
+                        '../image/sticky6.png',
+                        '../image/sticky7.png',
+                        '../image/sticky8.png',
+                    ];
+
+                    let imageNum = Math.floor(Math.random() * 4);
+
+                    let temp = `
+                        <div id="it" data-index=${postList[i]._id} class="postit" style="background-image: url(${ImageNum[imageNum]}); position: absolute; left: ${posX}px; top: ${posY}px;" data-bs-toggle="modal"
+        data-bs-target="#post-detail-modal" onclick="openModal('${postList[i]._id}')">
+                            ${postList[i].nickname}
+                        </div>
+                    `;
+
+                    $('.board').append(temp);
+                }
+            },
+            error: function (response) {
+                alert(response.responseJSON.message);
+                window.location.reload = '/';
+            },
+        });
+    }
+
+    function submit() {
+        const nickname = $('#nickname').val();
+        const content = $('#content').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/posts/',
+            data: {
+                nickname,
+                content,
+            },
+            success: function (response) {
+                alert(response.message);
+                window.location.href = '/';
+            },
+            error: function (response) {
+                alert(response.responseJSON.message);
+                window.location.reload = '/';
+            },
+        });
+    }
+
+    function openModal(id) {
+        const postId = id;
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/posts/' + postId,
+            success: function (response) {
+                const post = response.post;
+
+                $('#post-detail-nickname').html(post.nickname);
+                $('#post-detail-content').html(post.content);
+            },
+            error: function (response) {
+                alert(response.responseJSON.message);
+
+                $('#post-detail-modal').on('shown.bs.modal', function () {
+                    $('#post-detail-modal').modal('hide');
+                });
+            },
+        });
+    }
+</script>
