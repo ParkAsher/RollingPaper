@@ -1,4 +1,13 @@
-const { NotInvalidType } = require('../lib/CustomError');
+/* Custom Error */
+const {
+    NotInvalidType,
+    NotInvalidNicknameContent,
+    NicknameLengthError,
+    NotAuthorizedError,
+    NotInvalidPostId,
+} = require('../lib/CustomError');
+
+/* Service */
 const PostService = require('../services/post_service');
 
 class PostController {
@@ -23,6 +32,7 @@ class PostController {
             }
 
             const postList = await this.postService.getPosts(id, type);
+
             return res.status(200).json({ postList });
         } catch (error) {
             return res.status(error.status).json({ message: error.message });
@@ -33,42 +43,42 @@ class PostController {
         try {
             const { nickname, content } = req.body;
 
-            if (nickname === undefined) {
-                res.status(412).send({ message: '닉네임을 작성해 주세요' });
-            } else if (content === undefined) {
-                res.status(412).send({ message: '내용을 작성해 주세요' });
+            if (!nickname || !content) {
+                const error = new NotInvalidNicknameContent();
+                throw error;
             }
 
             if (nickname.length > 10) {
-                let error = new Error('닉네임은 10글자를 넘길 수 없습니다.');
-                error.status = 412;
+                let error = new NicknameLengthError();
                 throw error;
             }
 
             await this.postService.createPost(nickname, content);
 
-            res.status(201).send({ message: '롤링페이퍼 작성 완료' });
+            return res.status(201).send({ message: '롤링페이퍼 작성 완료' });
         } catch (error) {
-            res.status(400).send({ message: error.message });
+            return res.status(error.status).send({ message: error.message });
         }
     };
 
     // 게시글 상세조회
-    getPost = async (req, res, next) => {
+    getPost = async (req, res) => {
         try {
-            if (!res.locals.user) {
-                const error = new Error('게시글 조회 권한이 없습니다.');
-                error.status = 400;
+            const { postId } = req.params;
+
+            if (!postId) {
+                const error = new NotInvalidPostId();
                 throw error;
             }
 
-            const { postId } = req.params;
-
-            const currentPost = await this.postService.getPost(postId);
-            if (!currentPost) {
-                return res.status(400).json({ message: ' 게시글 조회에 실패하였습니다' });
+            if (!res.locals.user) {
+                const error = new NotAuthorizedError();
+                throw error;
             }
-            return res.status(200).json({ currentPost });
+
+            const post = await this.postService.getPost(postId);
+
+            return res.status(200).json({ post });
         } catch (error) {
             res.status(error.status).json({ message: error.message });
         }
