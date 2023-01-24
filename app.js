@@ -1,20 +1,25 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const router = require('./routes');
 const dotenv = require('dotenv');
+
+/* .env */
 dotenv.config();
 
+/* MongoDB Connect */
+const connect = require('./schemas/index');
+connect();
+
 const app = express();
+
+/* Routes */
+const apiRouter = require('./routes');
+const ejsRouter = require('./routes/ejs.routes');
 
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-app.use(require('./routes/ejs.routes'));
-app.use('/api', router);
-/* MongoDB Connect */
-const connect = require('./schemas/index');
-connect();
+app.use(ejsRouter);
+app.use('/api', apiRouter);
 
 /* views */
 app.set('views', __dirname + '/views');

@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken');
 
-// model
+/* Custom Error */
+const { UserNotFound } = require('../lib/CustomError');
+
+/* Schema */
 const User = require('../schemas/user');
 
 module.exports = async (req, res, next) => {
@@ -19,8 +22,7 @@ module.exports = async (req, res, next) => {
 
         // id에 해당하는 회원이 존재하지 않는 경우
         if (!user) {
-            const error = new Error('유저가 존재하지 않습니다.');
-            error.status = 400;
+            const error = new UserNotFound();
             throw error;
         }
 
@@ -30,6 +32,5 @@ module.exports = async (req, res, next) => {
     } catch (error) {
         res.clearCookie('accessToken');
         return res.status(error.status).json({ message: error.message });
-        // next(error);
     }
 };
