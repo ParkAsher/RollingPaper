@@ -1,3 +1,7 @@
+/* Custom Error */
+const { UserNotFound } = require('../lib/CustomError');
+
+/* Repository */
 const UserRepository = require('../repositories/user_repository');
 
 class UserService {
@@ -9,8 +13,7 @@ class UserService {
 
             // 없다면?
             if (!user) {
-                const error = new Error('회원이 존재하지 않습니다.');
-                error.status = 400;
+                const error = new UserNotFound();
                 throw error;
             }
 
