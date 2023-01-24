@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express();
 
-const PostController = require('../controllers/post_controller');
+/* Auth Middleware */
 const auth = require('../middleware/auth');
+
+/* Controller */
+const PostController = require('../controllers/post_controller');
 const postController = new PostController();
 
 router.post('/', postController.createPost);
