@@ -1,5 +1,8 @@
 const jwt = require('jsonwebtoken');
 
+/* Custom Error */
+const { PasswordConfirmError, NotInvalidIdPassword } = require('../lib/CustomError');
+
 // service
 const UserService = require('../services/user_service.js');
 
@@ -11,8 +14,7 @@ class UserController {
             const { id, password } = req.body;
 
             if (!id || !password) {
-                const error = new Error('아이디 또는 패스워드를 입력해주세요.');
-                error.status = 400;
+                const error = new NotInvalidIdPassword();
                 throw error;
             }
 
@@ -20,8 +22,7 @@ class UserController {
             const user = await this.userService.findUser(id);
 
             if (password !== user.password) {
-                const error = new Error('비밀번호가 일치하지 않습니다.');
-                error.status = 400;
+                const error = new PasswordConfirmError();
                 throw error;
             }
 
