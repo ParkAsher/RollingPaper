@@ -17,7 +17,7 @@ class PostService {
             const postList = await this.postRepository.getPostsInit();
 
             if (postList.length < 1) {
-                const error = PostsNotExist();
+                const error = new PostsNotExist();
                 throw error;
             }
 
