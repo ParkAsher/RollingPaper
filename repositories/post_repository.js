@@ -5,14 +5,13 @@ class PostRepository {
         try {
             const postList = await Post.find({}).limit(7);
             return postList;
-        } catch (err) {
-            console.log(err);
-            err.status = 500;
-            throw err;
+        } catch (error) {
+            error.status = 500;
+            throw error;
         }
     };
 
-    loadPost = async (id, type) => {
+    getPosts = async (id, type) => {
         try {
             if (type === 'next') {
                 const postList = await Post.find({
@@ -31,10 +30,9 @@ class PostRepository {
 
                 return postList;
             }
-        } catch (err) {
-            console.log(err);
-            err.status = 500;
-            throw err;
+        } catch (error) {
+            error.status = 500;
+            throw error;
         }
     };
 
@@ -48,10 +46,12 @@ class PostRepository {
             throw error;
         }
     };
+
     getPost = async (postId) => {
         try {
-            const readMe = await Post.findById(postId);
-            return readMe;
+            const post = await Post.findById(postId);
+
+            return post;
         } catch (error) {
             error.status = 500;
             throw error;
